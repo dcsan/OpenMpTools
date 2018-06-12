@@ -1,0 +1,8 @@
+<view class="payPage">
+  <view class="payCont">
+  	<view class="center">支付 Demo</view>
+	  <view class="payBox">
+	  	<button class="payBtn" bindtap="pay">购买</button>
+	  </view>
+  </view>
+</view>
