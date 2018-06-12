@@ -14,7 +14,7 @@ Page({
   },
 
   pay(e){
-    let url = 'https://test/test'
+    let url = 'http://rikpay.rikai-bots.com/test'
     let reqObj = { 
       url: url,
       data: {},

@@ -23,6 +23,13 @@ app.get("/ping", (req, res) => {
   })
 })
 
+app.post("/test", (req, res) => {
+  console.log("POST.test")
+  res.json({
+    msg: "test"
+  })
+})
+
 
 const port = process.env.PORT || 9290
 
