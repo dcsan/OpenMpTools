@@ -1,0 +1,41 @@
+env:
+  browser: true
+  es6: true
+extends:
+  - 'eslint:recommended'
+parserOptions:
+  sourceType: module
+  ecmaVersion: 8
+  ecmaFeatures:
+    experimentalObjectRestSpread: true
+rules:
+  no-undef: warn
+  no-empty: warn
+  no-unused-vars: warn
+  indent:
+    - warn
+    - 2
+  linebreak-style:
+    - error
+    - unix
+  semi:
+    - warn
+    - never
+  no-console:
+    - off
+  no-debugger:
+    - off
+globals:
+  Page: true
+  require: true
+  module: true
+  wx: true
+  App: true
+  getApp: true
+  process: true
+  __dirname: true
+  beforeEach: true
+  describe: true
+  before: true
+  it: true
+  __THEME: true

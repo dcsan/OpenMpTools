@@ -10,6 +10,11 @@ const debug = require("debug-levels")("server")
 
 const app = express()
 
+app.get("/", (req, res) => {
+  console.log("/ping")
+  res.send('logged.')
+})
+
 
 app.get("/ping", (req, res) => {
   console.log("/ping")
@@ -19,7 +24,7 @@ app.get("/ping", (req, res) => {
 })
 
 
-const port = process.env.PORT || 4444
+const port = process.env.PORT || 9290
 
 async function startUp() {
 
