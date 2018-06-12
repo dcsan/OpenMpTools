@@ -7,17 +7,17 @@
 const path = require('path'),
 fs         = require('fs'),
 moment     = require('moment'),
-WXpayment  = require('./index'),
+WXpayment  = require('./package/kain-pay'),
 rootPath   = path.normalize(__dirname);
 
 const option = {
 	pfx       : fs.readFileSync(rootPath + '/apiclient_cert.p12'),
-	appsecret : '0f7f047780e15e68308ed981c4f0bfed',
+	appsecret : '408f9af347447bea0b09ee350caddb13',
 },
 config = {
-	appid      : 'wx06c82c3cbb012752',					// 小程序ID
-	mch_id     : '1493918942',							// 商户号
-	notify_url : 'https://tutorweb.rikai-bots.com',		// 支付信息通知地址
+	appid      : 'wx019a14a6b90883e5',					// 小程序ID
+	mch_id     : '1503979901',							// 商户号
+	notify_url : 'https://rikpay.rikai-bots.com/payment/notify',		// 支付信息通知地址
 };
 
 const payment = new WXpayment(option, config);
@@ -43,7 +43,7 @@ const formdata = {
  */
 payment.unifiedOrder(formdata, (err, result) => {
 	if(err) console.error(err);
-	else console.log('result', result);
+  else console.log('result', result);
 });
 
 /**
@@ -62,7 +62,7 @@ payment.unifiedOrder(formdata, (err, result) => {
 			console.log('小程序支付调用失败', res)
 		},
 		complete(res){
-		
+
 		}
 	})
  */

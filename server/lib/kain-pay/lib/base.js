@@ -3,10 +3,12 @@
  * Module description: wechat payment base
  */
 
-const crypto = require('crypto'),
-moment       = require('moment')
-shortid      = require('shortid'),
-util         = require('./util');
+const
+  crypto        = require('crypto'),
+  moment       = require('moment'),
+  md5 = require('md5'),
+  shortid      = require('shortid'),
+  util         = require('./util');
 
 class Base {
 
@@ -19,11 +21,11 @@ class Base {
 	get validation() {
 		const {option, config} = this;
 
-		if(typeof option.pfx === undefined) 
+		if(typeof option.pfx === undefined)
 			return false;
-		else if(option.appsecret === undefined) 
+		else if(option.appsecret === undefined)
 			return false;
-		else 
+		else
 			return this.onIterator(config);
 	}
 
@@ -45,17 +47,19 @@ class Base {
 	// 生成微信签名
 	paySignjsapi(option) {
 		let string = util.raw1(option);
-		string     = `${string}&key=${this.option.appsecret}`;
+		string     = `${string}&key=${this.option.partnerKey}`;
 
-		console.log('string', string);
-		return crypto.createHash('md5').update(string, 'utf8').digest('hex');
+    console.log('string', string);
+    const paySign = crypto.createHash('md5').update(string, 'utf8').digest('hex').toUpperCase();
+    // const paySign = md5(string).digest('hex');
+		return paySign;
 	}
 
 	// 参数打包
 	packaging(xml, callback) {
 		try {
-			
-			util.parseXML(xml, (result) => {
+			util.parseXML(xml, (err, result) => {
+        console.log('result', result);
 				if(result && result.prepay_id) {
 					const prepay_id = result.prepay_id;
 					const timeStamp = moment().unix(),
@@ -64,13 +68,13 @@ class Base {
 					jsapi_cfg       = {	// 生成二次签名
 						appId    : this.config.appid,
 						nonceStr : nonce_str,
-						package  : prepay_id,
+						package  : `prepay_id=${prepay_id}`,
 						signType,
 						timeStamp
 					},
-					paySignjs   = this.paySignjsapi(jsapi_cfg);
+					paySign   = this.paySignjsapi(jsapi_cfg);
 
-					callback(null, Object.assign(jsapi_cfg, {paySignjs}));
+					callback(null, Object.assign(jsapi_cfg, {paySign}));
 				} else {
 					callback('统一支付调用错误，参数不正确', null);
 					return;

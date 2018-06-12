@@ -27,19 +27,23 @@ class WXpay extends Base {
 
 		if(!this.validation) return callback('参数验证失败，请检查参数', null);
 		let formdata = Object.assign(this.config, {...option});
-		const sign = this.paySignjsapi(formdata).toUpperCase();
-		formdata = util.buildXML(Object.assign(formdata, {sign}));
+    const sign = this.paySignjsapi(formdata).toUpperCase();
+    console.log('paySign', sign)
+    let blob = Object.assign(formdata, {sign})
+		formdata = util.buildXML(blob);
 
 		console.log('formdata', formdata)
 		request({
 			url    : unifiedorder_url,
 			method : 'POST',
 			body   : formdata,
-			agentOptions: {
-				pfx        : this.option.pfx,
-				passphrase : this.config.mch_id
-			}
+			// agentOptions: {
+			// 	pfx        : this.option.pfx,
+			// 	passphrase : this.config.mch_id
+			// }
 		}, (err, response, body) => {
+      console.log('error', err)
+      console.log('body', body)
 			if(err) {
 				console.error('微信统一下单出错！', err)
 				callback(err, null);

@@ -12,8 +12,8 @@
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.0.9",
-	"appid": "touristappid",
-	"projectname": "payDemo",
+	"appid": "wx019a14a6b90883e5",
+	"projectname": "payDemo2",
 	"condition": {
 		"search": {
 			"current": -1,

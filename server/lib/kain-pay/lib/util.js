@@ -23,7 +23,8 @@ module.exports = {
 	},
 	buildXML(obj) {
 		const builder = new xml2js.Builder({
-			allowSurrogateChars : true
+      allowSurrogateChars : true,
+      headless: true
 		});
 		const xml = builder.buildObject({
 			xml : obj
@@ -38,7 +39,7 @@ module.exports = {
 		});
 		parser.parseString(xml, fn || function(err, result){ });
 	},
-	cipher(str ,callback) { 
+	cipher(str ,callback) {
 		let encrypted = "";
 		this.randomWord(true, 3, 32, key => {
 			let cip = crypto.createCipher('aes192', key);

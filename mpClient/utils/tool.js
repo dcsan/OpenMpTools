@@ -27,13 +27,14 @@ const request = obj => {
 
 const pay = obj => {
   return new Promise((resolve, reject) => {
+    console.log('Tool.pay', obj)
   	wx.requestPayment({
 	   'timeStamp': obj.timeStamp,
 	   'nonceStr': obj.nonceStr,
-	   'package': obj.package,
+     'package': obj.package,
 	   'signType': 'MD5',
 	   'paySign': obj.paySign,
-	   'success':function(res){ 
+	   'success':function(res){
 	   	  console.log('%c pay success...','color:green;font-size:20px;')
 	   	  console.log(res)
 	   	  resolve(res)
