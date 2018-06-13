@@ -35,9 +35,12 @@ Page({
 
   pay(e){
     let url = 'http://rikpay.rikai-bots.com/payment'
+    let total_amount = `${Math.ceil(Math.random()*50)}`
     let reqObj = {
       url: url,
-      data: {},
+      data: {
+        total_amount
+      },
       method: 'POST',
     }
     Tool.request(reqObj).then((res) => {
