@@ -8,10 +8,10 @@ App({
     wx.setStorageSync('logs', logs)
 
     // 登录
-    wx.login({
-      success: res => {
+    // wx.login({
+      // success: res => {
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
-        console.log('login success => ',res)
+        // console.log('login success => ',res)
         // if (res.code) {
         //   Tool.request({
         //     url:'',
@@ -22,8 +22,12 @@ App({
         //     console.log('get openId => ',res)
         //   })
         // }
-      }
-    })
+      // }
+    // })
+    
+    // mp get user
+    
+
   },
   globalData: {
     userInfo: null

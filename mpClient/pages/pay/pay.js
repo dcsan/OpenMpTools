@@ -26,20 +26,72 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    // appid  : 'wx019a14a6b90883e5',
+    // secret : '408f9af347447bea0b09ee350caddb13',
+    appid  : 'wx7f3920800d75b422',
+    secret : 'bc938e53428b62c0f9cc98dd3695eeeb',
+    openid : ''
   },
 
   onload(opts){
     console.log(opts)
-  },
 
+  },
+  onGetUserInfo(e) {
+    console.log('e', e)
+    if (e.detail.rawData){
+      //用户按了允许授权按钮
+      console.log('用户按了允许授权按钮')
+      const {userInfo, encryptedData, iv} = e.detail;
+      console.log('用户信息，无敏感信息', userInfo);
+
+      this.onGetLogin()
+      .then(result => {
+        // 获取openid，unionId
+        console.log('result', result)
+        const {session_key, openid, unionid} = result.data;
+        this.data.openid = openid;
+      })
+      .catch(() => {
+        wx.showToast({
+          title    : 'openid 获取错误',
+          icon     : 'none',
+          duration : 2000
+        })
+      })
+    } else {
+      //用户按了拒绝按钮
+      console.log('用户按了拒绝按钮')
+    }
+  },
+  onGetLogin() {
+      return new Promise((resolve, reject) => {
+          wx.login({
+              success : (res) => {
+                  if (res.code) {
+                      wx.request({
+                          url  : `https://api.weixin.qq.com/sns/jscode2session?appid=${this.data.appid}&secret=${this.data.secret}&js_code=${res.code}&grant_type=authorization_code`,
+                          data : { code : res.code },
+                          success : (result) => {
+                            resolve(result);
+                          },
+                          fail : (err) => reject(null)
+                      })
+                  } else reject('error')
+              }
+          });
+      });
+  },
   pay(e){
+    console.log('openid', this.data.openid);
     let url = 'http://rikpay.rikai-bots.com/payment'
     let total_amount = `${Math.ceil(Math.random()*50)}`
     let reqObj = {
       url: url,
       data: {
-        total_amount
+        total_amount,
+        total : 1,
+        openid : this.data.openid
       },
       method: 'POST',
     }

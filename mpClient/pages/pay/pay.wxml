@@ -2,6 +2,14 @@
   <view class="payCont">
   	<view class="center">支付 Demo</view>
 	  <view class="payBox">
+		<button
+		lang            = "zh_CN"
+		class           = "payBtn"
+		open-type       = "getUserInfo"
+		bindgetuserinfo = "onGetUserInfo">
+		<!-- 必须使用button获取 -->
+			获取用户
+		</button>
 	  	<button class="payBtn" bindtap="pay">购买</button>
 	  </view>
   </view>

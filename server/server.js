@@ -10,10 +10,10 @@ const app = express()
 
 
 // const path = require('path'),
-const fs         = require('fs'),
-  moment     = require('moment'),
-  WXpayment  = require('./lib/kain-pay'),
-  rootPath   = path.normalize(__dirname);
+const fs  = require('fs'),
+moment    = require('moment'),
+WXpayment = require('./lib/kain-pay'),
+rootPath  = path.normalize(__dirname);
 
 const option = {
 	pfx       : fs.readFileSync(rootPath + '/apiclient_cert.p12'),
@@ -64,14 +64,16 @@ app.post("/test", (req, res) => {
 })
 
 app.post('/payment',(req, res)=> {
+  const {openid, total} = res.body;
   const formdata = {
     body             : '支付测试',		// 商品描述
     detail           : '支付测试',		// 详细描述
     out_trade_no: `orderid_${moment().second()}${moment().millisecond()}`,
     // out_trade_no     : '20180612125748',		// 商户订单号
-    total_fee        : 100,		// 支付金额, 1元 = 1 * 100
+    total_fee        : total * 100,		// 支付金额, 1元 = 1 * 100
     spbill_create_ip : ip.address(),
-    openid 			 : "ot-If0bYCmZ5WWK6m8TXifnA9buU" // DC
+    // openid 			 : "ot-If0bYCmZ5WWK6m8TXifnA9buU" // DC
+    openid,
   }
 
 
