@@ -77,8 +77,6 @@ app.post('/payment',(req, res)=> {
     openid,
   }
 
-
-
   payment.unifiedOrder(formdata, (err, result) => {
     console.log('result', result)
     if(err) console.error(err);

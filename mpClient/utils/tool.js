@@ -1,3 +1,5 @@
+// TODO - better namespacing
+
 const request = obj => {
   return new Promise((resolve, reject) => {
   	wx.request({
