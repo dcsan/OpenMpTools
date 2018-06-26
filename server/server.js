@@ -64,6 +64,7 @@ app.post("/test", (req, res) => {
 })
 
 app.post('/payment',(req, res)=> {
+  debug('body', res.body)
   const {openid, total} = res.body;
   const formdata = {
     body             : '支付测试',		// 商品描述
