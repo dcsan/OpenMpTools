@@ -32,7 +32,7 @@ const payment = new WXpayment(option, config);
 
 
 app.use(bodyParser.text({type: '*/xml'}));
-// app.use(bodyParser.urlencoded()); // json
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 
