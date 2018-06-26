@@ -36,7 +36,7 @@ Page({
   onload(opts) {
     console.log(opts)
   },
-  
+
   onGetUserInfo(e) {
     console.log('e', e)
     if (e.detail.rawData) {
@@ -64,7 +64,7 @@ Page({
       console.log('用户按了拒绝按钮')
     }
   },
-  
+
   onGetLogin() {
     return new Promise((resolve, reject) => {
       wx.login({

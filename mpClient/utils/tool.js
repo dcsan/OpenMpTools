@@ -1,12 +1,15 @@
 // TODO - better namespacing
 
+const log = console.log
+
 const request = obj => {
+  log('tool.request obj', obj)
   return new Promise((resolve, reject) => {
   	wx.request({
   	  url: obj.url,
   	  data: obj.data || {},
   	  header: obj.header || {'content-type': 'application/json'},
-  	  method: obj.method || 'GET',
+  	  method: obj.method || 'POST',
   	  dataType: obj.dataType || 'json',
   	  responseType: obj.responseType || 'text',
   	  success(e) {

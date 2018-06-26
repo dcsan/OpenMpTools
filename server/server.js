@@ -32,6 +32,9 @@ const payment = new WXpayment(option, config);
 
 
 app.use(bodyParser.text({type: '*/xml'}));
+// app.use(bodyParser.urlencoded()); // json
+app.use(bodyParser.json());
+
 
 
 // const zatlib = require('zatlib')
@@ -64,8 +67,8 @@ app.post("/test", (req, res) => {
 })
 
 app.post('/payment',(req, res)=> {
-  debug('body', res.body)
-  const {openid, total} = res.body;
+  debug('req.body', req.body)
+  const {openid, total} = req.body;
   const formdata = {
     body             : '支付测试',		// 商品描述
     detail           : '支付测试',		// 详细描述
